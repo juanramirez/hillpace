@@ -1,4 +1,5 @@
-source "https://rubygems.org"
+source 'https://rubygems.org'
 
-gem "rspec"
-gem "nokogiri"
+gem 'rake'
+gem 'rspec'
+gem 'nokogiri'
