@@ -1,5 +1,5 @@
 require 'rspec'
-require_relative '../src/pace-adjuster/pace_adjuster'
+require_relative '../../../src/pace/adjuster/pace_adjuster'
 
 describe 'PaceAdjuster' do
   it 'should use the provided strategy' do

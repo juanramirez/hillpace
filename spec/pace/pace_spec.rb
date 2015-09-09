@@ -1,5 +1,5 @@
 require 'rspec'
-require_relative '../src/pace-adjuster/pace'
+require_relative '../../src/pace/pace'
 
 describe 'Pace' do
   it 'should return the same seconds per km it is initialized with' do
