@@ -44,10 +44,10 @@ describe 'Route' do
 
   it 'should give a distance which is the sum of the distances of all segments' do
     expect(@chiclana_madrid.distance_meters).to \
-      eq(@chiclana_googleplex.distance_meters + @googleplex_madrid.distance_meters)
+      eq @chiclana_googleplex.distance_meters + @googleplex_madrid.distance_meters
   end
 
   it 'should give a climb which is the sum of the climbs of all segments' do
-    expect(@chiclana_madrid.climb).to eq(@chiclana_googleplex.climb + @googleplex_madrid.climb)
+    expect(@chiclana_madrid.climb).to eq @chiclana_googleplex.climb + @googleplex_madrid.climb
   end
 end
