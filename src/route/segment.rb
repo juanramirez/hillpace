@@ -18,7 +18,7 @@ class Segment
     last_track_point = @track_points.first
     @track_points.each do |track_point|
       next if track_point.equal? last_track_point
-      result += last_track_point.distance_meters_to(track_point)
+      result += last_track_point.distance_meters_to track_point
       last_track_point = track_point
     end
     result

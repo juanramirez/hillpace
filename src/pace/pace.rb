@@ -26,7 +26,7 @@ class Pace
       raise 'Too slow pace: more than an hour per kilometer.'
     end
 
-    Time.at(seconds_per_km).strftime('%M:%S')
+    Time.at(seconds_per_km).strftime '%M:%S'
   end
 
   private_class_method :new
