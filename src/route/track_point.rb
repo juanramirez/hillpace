@@ -16,6 +16,13 @@ class TrackPoint
     self.elevation = elevation
   end
 
+  def ==(other)
+    other.is_a? self.class and
+      @longitude == other.longitude and
+      @latitude == other.latitude and
+      @elevation == elevation
+  end
+
   def longitude=(longitude)
     raise 'Invalid longitude' if
         not longitude.is_a? Numeric or
