@@ -15,11 +15,11 @@ class Segment
     return 0 if @track_points.length <= 1
 
     result = 0
-    last_track_point = @track_points.first
+    latest_track_point = @track_points.first
     @track_points.each do |track_point|
-      next if track_point.equal? last_track_point
-      result += last_track_point.distance_meters_to track_point
-      last_track_point = track_point
+      next if track_point.equal? latest_track_point
+      result += latest_track_point.distance_meters_to track_point
+      latest_track_point = track_point
     end
     result
   end
@@ -33,12 +33,12 @@ class Segment
     return 0 if @track_points.length <= 1
 
     result = 0
-    last_track_point = @track_points.first
+    latest_track_point = @track_points.first
     @track_points.each do |track_point|
-      if track_point.elevation > last_track_point.elevation
-        result += last_track_point.climb_to(track_point)
+      if track_point.elevation > latest_track_point.elevation
+        result += latest_track_point.climb_to(track_point)
       end
-      last_track_point = track_point
+      latest_track_point = track_point
     end
     result
   end
@@ -47,13 +47,52 @@ class Segment
     return 0 if @track_points.length <= 1
 
     result = 0
-    last_track_point = @track_points.first
+    latest_track_point = @track_points.first
     @track_points.each do |track_point|
-      if track_point.elevation < last_track_point.elevation
-        result -= last_track_point.climb_to(track_point)
+      if track_point.elevation < latest_track_point.elevation
+        result -= latest_track_point.climb_to(track_point)
       end
-      last_track_point = track_point
+      latest_track_point = track_point
     end
+    result
+  end
+
+  def split_by_distance_meters(distance_meters)
+    result = []
+    accumulated_distance = 0
+    latest_track_point = @track_points.first
+    subsegment_track_points = [latest_track_point]
+
+    @track_points.each_with_index do |track_point, index|
+      next if index == 0
+      distance_delta = latest_track_point.distance_meters_to track_point
+      accumulated_distance += distance_delta
+
+      # in case the distance exceeds the reference distance, we add an interpolated track point
+      # both to the end of the actual subsegment and to the start of the next one
+      while accumulated_distance > distance_meters
+        bias = (distance_meters - (accumulated_distance - distance_delta)) / distance_delta
+        interpolated_track_point = latest_track_point.get_linear_interpolation_with track_point, bias
+        subsegment_track_points << interpolated_track_point
+        result << (Segment.new subsegment_track_points)
+
+        accumulated_distance -= distance_meters
+        distance_delta = accumulated_distance
+        latest_track_point = interpolated_track_point
+        subsegment_track_points = [interpolated_track_point]
+      end
+
+      if accumulated_distance == distance_meters or index == @track_points.length - 1
+        subsegment_track_points << track_point
+        result << (Segment.new subsegment_track_points)
+        subsegment_track_points = [track_point]
+        latest_track_point = track_point
+      elsif accumulated_distance < distance_meters
+        subsegment_track_points << track_point
+        latest_track_point = track_point
+      end
+    end
+
     result
   end
 end

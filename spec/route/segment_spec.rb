@@ -38,6 +38,24 @@ describe 'Segment' do
     expect(segment.distance_meters).to be_within(5000).of 740000
   end
 
+  it 'should be splitted into 740 or 741 segments of (approx.) 1km of distance for Madrid - Chiclana - Granada' do
+    segment = Segment.new [@madrid, @chiclana, @granada]
+    subsegments = segment.split_by_distance_meters 1000
+    expect(subsegments.length).to be_between 740, 741
+
+    subsegments.each_with_index do |subsegment, index|
+      break if index == subsegments.length - 1
+      # Linear interpolation is ok for normal track point frequency, but for just three points and so far away
+      # it's assumable to have a +-10 meters error.
+      expect(subsegment.distance_meters).to be_within(10).of 1000
+    end
+
+    subsegments.each_with_index do |subsegment, index|
+      next if index == 0
+      expect(subsegment.track_points.first).to eq subsegments[index - 1].track_points.last
+    end
+  end
+
   it 'should give 52 meters of climb for Madrid - Chiclana - Granada' do
     segment = Segment.new [@madrid, @chiclana, @granada]
     expect(segment.climb).to eq 52

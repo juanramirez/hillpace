@@ -83,4 +83,11 @@ describe 'TrackPoint' do
   it 'should return -624 meters of climb from Madrid to Chiclana' do
     expect(@madrid.climb_to @chiclana).to eq -624
   end
+
+  it 'should lineally interpolate two track points' do
+    interpolated_track_point = @madrid.get_linear_interpolation_with @chiclana
+    expect(interpolated_track_point.longitude).to be_within(0.001).of -4.9151
+    expect(interpolated_track_point.latitude).to be_within(0.001).of 38.4249
+    expect(interpolated_track_point.elevation).to be_within(1).of 336
+  end
 end

@@ -54,4 +54,11 @@ class TrackPoint
   def climb_to(track_point)
     track_point.elevation - @elevation
   end
+
+  def get_linear_interpolation_with(track_point, bias = 0.5)
+    # For small distances between track points, a linear interpolation should be enough
+    TrackPoint.new @longitude * (1.0 - bias) + track_point.longitude * bias,
+      @latitude * (1.0 - bias) + track_point.latitude * bias,
+      @elevation * (1.0 - bias) + track_point.elevation * bias
+  end
 end
