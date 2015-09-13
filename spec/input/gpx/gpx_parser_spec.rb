@@ -14,6 +14,9 @@ describe 'GpxParser' do
     route = routes.first
     expect(route.segments.length).to eq 1
     expect(route.distance_meters).to be_within(500).of 21097
+    expect(route.climb).to be < 10
+    expect(route.total_uphills).to be_within(100).of 450
+    expect(route.total_downhills).to be_within(100).of 450
 
     segment = route.segments.first
     expect(segment.distance_meters).to be_within(500).of 21097

@@ -50,4 +50,13 @@ describe 'Route' do
   it 'should give a climb which is the sum of the climbs of all segments' do
     expect(@chiclana_madrid.climb).to eq @chiclana_googleplex.climb + @googleplex_madrid.climb
   end
+
+  it 'should give total uphills data which is the sum of the total uphills of all segments' do
+    expect(@chiclana_madrid.total_uphills).to eq @chiclana_googleplex.total_uphills + @googleplex_madrid.total_uphills
+  end
+
+  it 'should give total downhills data which is the sum of the total downhills of all segments' do
+    expect(@chiclana_madrid.total_downhills).to \
+      eq @chiclana_googleplex.total_downhills + @googleplex_madrid.total_downhills
+  end
 end

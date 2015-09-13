@@ -24,4 +24,12 @@ class Route
   def climb
     @segments.inject(0) {|result, segment| result + segment.climb}
   end
+
+  def total_uphills
+    @segments.inject(0) {|result, segment| result + segment.total_uphills}
+  end
+
+  def total_downhills
+    @segments.inject(0) {|result, segment| result + segment.total_downhills}
+  end
 end
