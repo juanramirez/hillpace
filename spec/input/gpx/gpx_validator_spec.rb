@@ -3,8 +3,8 @@ require_relative '../../../src/input/gpx/gpx_validator'
 
 DEFAULT_SCHEMA_FILE = 'spec/resources/schema/gpx.xsd'
 DEFAULT_SCHEMA_URL = 'http://www.topografix.com/gpx/1/1/gpx.xsd'
-VALID_GPX_FILE = 'spec/resources/gpx/MadridMarathon.gpx'
-INVALID_GPX_FILE = 'spec/resources/gpx/MadridMarathonInvalid.gpx'
+VALID_GPX_FILE = 'spec/resources/gpx/GranadaHalfMarathon.gpx'
+INVALID_GPX_FILE = 'spec/resources/gpx/GranadaHalfMarathonInvalid.gpx'
 
 describe 'GpxValidator' do
   it 'should validate a valid gpx document when using default schema' do
