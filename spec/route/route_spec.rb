@@ -51,6 +51,12 @@ describe 'Route' do
     expect(@chiclana_madrid.climb).to eq @chiclana_googleplex.climb + @googleplex_madrid.climb
   end
 
+  it 'should give an incline which is the sum of the climbs divided by the sum of the distances of all segments' do
+    climb_sum = @chiclana_googleplex.climb + @googleplex_madrid.climb
+    distance_meters_sum = @chiclana_googleplex.distance_meters + @googleplex_madrid.distance_meters
+    expect(@chiclana_madrid.incline).to eq (climb_sum / distance_meters_sum)
+  end
+
   it 'should give total uphills data which is the sum of the total uphills of all segments' do
     expect(@chiclana_madrid.total_uphills).to eq @chiclana_googleplex.total_uphills + @googleplex_madrid.total_uphills
   end

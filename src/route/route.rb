@@ -1,3 +1,5 @@
+require_relative 'segment'
+
 class Route
   attr_reader :segments
 
@@ -23,6 +25,10 @@ class Route
 
   def climb
     @segments.inject(0) {|result, segment| result + segment.climb}
+  end
+
+  def incline
+    self.climb / self.distance_meters
   end
 
   def total_uphills

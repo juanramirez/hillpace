@@ -5,6 +5,8 @@ describe 'TrackPoint' do
   before(:each) do
     @madrid = TrackPoint.new -3.6795367, 40.4379543, 648
     @chiclana = TrackPoint.new -6.15084, 36.4118808, 24
+    @granada = TrackPoint.new -3.5922032, 37.1809462, 700
+    @veleta = TrackPoint.new -3.348333, 37.050556, 3396
     @googleplex = TrackPoint.new -122.0840575, 37.4219999, 6
   end
 
@@ -82,6 +84,18 @@ describe 'TrackPoint' do
 
   it 'should return -624 meters of climb from Madrid to Chiclana' do
     expect(@madrid.climb_to @chiclana).to eq -624
+  end
+
+  it 'should return zero incline for the same track point' do
+    expect(@googleplex.incline_to @googleplex).to eq 0
+  end
+
+  it 'should return an incline of 10% from Granada to Veleta' do
+    expect(@granada.incline_to @veleta).to be_within(0.01).of 0.10
+  end
+
+  it 'should return an incline of -10% from Veleta to Granada' do
+    expect(@veleta.incline_to @granada).to be_within(0.01).of -0.10
   end
 
   it 'should lineally interpolate two track points' do

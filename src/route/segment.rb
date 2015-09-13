@@ -26,7 +26,12 @@ class Segment
 
   def climb
     return 0 if @track_points.length <= 1
-    track_points.last.elevation - track_points.first.elevation
+    track_points.first.climb_to track_points.last
+  end
+
+  def incline
+    return 0 if @track_points.length <= 1
+    self.climb / self.distance_meters
   end
 
   def total_uphills

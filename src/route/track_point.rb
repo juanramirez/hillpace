@@ -55,6 +55,13 @@ class TrackPoint
     track_point.elevation - @elevation
   end
 
+  def incline_to(track_point)
+    distance_meters = self.distance_meters_to track_point
+    return 0 if distance_meters == 0
+
+    (self.climb_to track_point) / distance_meters
+  end
+
   def get_linear_interpolation_with(track_point, bias = 0.5)
     # For small distances between track points, a linear interpolation should be enough
     TrackPoint.new @longitude * (1.0 - bias) + track_point.longitude * bias,

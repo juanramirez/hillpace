@@ -6,6 +6,7 @@ describe 'Segment' do
     @madrid = TrackPoint.new -3.6795367, 40.4379543, 648
     @chiclana = TrackPoint.new -6.15084, 36.4118808, 24
     @granada = TrackPoint.new -3.5922032, 37.1809462, 700
+    @veleta = TrackPoint.new -3.348333, 37.050556, 3396
     @googleplex = TrackPoint.new -122.0840575, 37.4219999, 6
   end
 
@@ -59,6 +60,11 @@ describe 'Segment' do
   it 'should give 52 meters of climb for Madrid - Chiclana - Granada' do
     segment = Segment.new [@madrid, @chiclana, @granada]
     expect(segment.climb).to eq 52
+  end
+
+  it 'should give 10% of incline for Granada - Veleta' do
+    segment = Segment.new [@granada, @veleta]
+    expect(segment.incline).to be_within(0.01).of 0.10
   end
 
   it 'should give 694 meters of total uphills for Madrid - GooglePlex - Granada - Chiclana' do
