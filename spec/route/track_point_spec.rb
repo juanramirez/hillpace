@@ -11,7 +11,7 @@ describe 'TrackPoint' do
   end
 
   context "#==" do
-    it "should discriminate two track points with different longitude" do |member|
+    it "should discriminate two track points with different longitude" do
       one   = TrackPoint.new(1,1,1)
       other = TrackPoint.new(2,1,1)
 
@@ -25,7 +25,7 @@ describe 'TrackPoint' do
       expect(one).to_not eq(other)
     end
 
-    it "should discriminate two track points with different inclination" do
+    it "should discriminate two track points with different elevation" do
       one   = TrackPoint.new(1,1,1)
       other = TrackPoint.new(1,1,2)
 
