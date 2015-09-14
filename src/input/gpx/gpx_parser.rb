@@ -4,6 +4,8 @@ require_relative 'kalman_filter'
 require_relative '../../route/route'
 
 class GpxParser
+  attr_reader :document
+
   def initialize(gpx_content)
     @document = Nokogiri::XML gpx_content
     @srtm = GeoElevation::Srtm.new
@@ -19,7 +21,7 @@ class GpxParser
 
   def parse
     routes = Array.new
-    @document.search('trk').each do |route_node|
+    document.search('trk').each do |route_node|
       routes << parse_route(route_node)
     end
     routes

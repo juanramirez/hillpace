@@ -12,11 +12,11 @@ class Segment
   end
 
   def distance_meters
-    return 0 if @track_points.length <= 1
+    return 0 if track_points.length <= 1
 
     result = 0
-    latest_track_point = @track_points.first
-    @track_points.each do |track_point|
+    latest_track_point = track_points.first
+    track_points.each do |track_point|
       next if track_point.equal? latest_track_point
       result += latest_track_point.distance_meters_to track_point
       latest_track_point = track_point
@@ -25,21 +25,21 @@ class Segment
   end
 
   def climb
-    return 0 if @track_points.length <= 1
+    return 0 if track_points.length <= 1
     track_points.first.climb_to track_points.last
   end
 
   def incline
-    return 0 if @track_points.length <= 1
+    return 0 if track_points.length <= 1
     self.climb / self.distance_meters
   end
 
   def total_uphills
-    return 0 if @track_points.length <= 1
+    return 0 if track_points.length <= 1
 
     result = 0
-    latest_track_point = @track_points.first
-    @track_points.each do |track_point|
+    latest_track_point = track_points.first
+    track_points.each do |track_point|
       if track_point.elevation > latest_track_point.elevation
         result += latest_track_point.climb_to(track_point)
       end
@@ -49,11 +49,11 @@ class Segment
   end
 
   def total_downhills
-    return 0 if @track_points.length <= 1
+    return 0 if track_points.length <= 1
 
     result = 0
-    latest_track_point = @track_points.first
-    @track_points.each do |track_point|
+    latest_track_point = track_points.first
+    track_points.each do |track_point|
       if track_point.elevation < latest_track_point.elevation
         result -= latest_track_point.climb_to(track_point)
       end
@@ -65,10 +65,10 @@ class Segment
   def split_by_distance_meters(distance_meters)
     result = []
     accumulated_distance = 0
-    latest_track_point = @track_points.first
+    latest_track_point = track_points.first
     subsegment_track_points = [latest_track_point]
 
-    @track_points.each_with_index do |track_point, index|
+    track_points.each_with_index do |track_point, index|
       next if index == 0
       distance_delta = latest_track_point.distance_meters_to track_point
       accumulated_distance += distance_delta
@@ -87,7 +87,7 @@ class Segment
         subsegment_track_points = [interpolated_track_point]
       end
 
-      if accumulated_distance == distance_meters or index == @track_points.length - 1
+      if accumulated_distance == distance_meters or index == track_points.length - 1
         subsegment_track_points << track_point
         result << (Segment.new subsegment_track_points)
         subsegment_track_points = [track_point]

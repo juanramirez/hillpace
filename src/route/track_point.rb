@@ -46,13 +46,13 @@ class TrackPoint
 
   def distance_meters_to(track_point)
     raise 'Invalid track point' unless track_point.is_a? TrackPoint
-    a = Geokit::GeoLoc.new({:lat => @latitude, :lng => @longitude})
+    a = Geokit::GeoLoc.new({:lat => latitude, :lng => longitude})
     b = Geokit::GeoLoc.new({:lat => track_point.latitude, :lng => track_point.longitude})
     METERS_PER_KILOMETER * (a.distance_to b, {:units => :kms})
   end
 
   def climb_to(track_point)
-    track_point.elevation - @elevation
+    track_point.elevation - elevation
   end
 
   def incline_to(track_point)
@@ -64,8 +64,8 @@ class TrackPoint
 
   def get_linear_interpolation_with(track_point, bias = 0.5)
     # For small distances between track points, a linear interpolation should be enough
-    TrackPoint.new @longitude * (1.0 - bias) + track_point.longitude * bias,
-      @latitude * (1.0 - bias) + track_point.latitude * bias,
-      @elevation * (1.0 - bias) + track_point.elevation * bias
+    TrackPoint.new longitude * (1.0 - bias) + track_point.longitude * bias,
+      latitude * (1.0 - bias) + track_point.latitude * bias,
+      elevation * (1.0 - bias) + track_point.elevation * bias
   end
 end

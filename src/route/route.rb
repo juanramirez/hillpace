@@ -20,11 +20,11 @@ class Route
   end
 
   def distance_meters
-    @segments.inject(0) {|result, segment| result + segment.distance_meters}
+    segments.inject(0) {|result, segment| result + segment.distance_meters}
   end
 
   def climb
-    @segments.inject(0) {|result, segment| result + segment.climb}
+    segments.inject(0) {|result, segment| result + segment.climb}
   end
 
   def incline
@@ -32,10 +32,10 @@ class Route
   end
 
   def total_uphills
-    @segments.inject(0) {|result, segment| result + segment.total_uphills}
+    segments.inject(0) {|result, segment| result + segment.total_uphills}
   end
 
   def total_downhills
-    @segments.inject(0) {|result, segment| result + segment.total_downhills}
+    segments.inject(0) {|result, segment| result + segment.total_downhills}
   end
 end

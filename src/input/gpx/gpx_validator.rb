@@ -5,6 +5,8 @@ require 'open-uri'
 class GpxValidator
   DEFAULT_SCHEMA_URL = 'http://www.topografix.com/gpx/1/1/gpx.xsd'
 
+  attr_reader :schema
+
   def initialize(schema_content)
     @schema = Nokogiri::XML::Schema schema_content
   end
@@ -23,7 +25,7 @@ class GpxValidator
 
   def validate(gpx_content)
     document = Nokogiri::XML gpx_content
-    @schema.validate document
+    schema.validate document
   end
 
   private_class_method :new
