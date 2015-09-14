@@ -10,6 +10,36 @@ describe 'TrackPoint' do
     @googleplex = TrackPoint.new -122.0840575, 37.4219999, 6
   end
 
+  context "#==" do
+    it "should discriminate two track points with different longitude" do |member|
+      one   = TrackPoint.new(1,1,1)
+      other = TrackPoint.new(2,1,1)
+
+      expect(one).to_not eq(other)
+    end
+
+    it "should discriminate two track points with different latitude" do
+      one   = TrackPoint.new(1,1,1)
+      other = TrackPoint.new(1,2,1)
+
+      expect(one).to_not eq(other)
+    end
+
+    it "should discriminate two track points with different inclination" do
+      one   = TrackPoint.new(1,1,1)
+      other = TrackPoint.new(1,1,2)
+
+      expect(one).to_not eq(other)
+    end
+
+    it "should not discriminate two equal points" do
+      one   = TrackPoint.new(1,1,1)
+      other = TrackPoint.new(1,1,1)
+
+      expect(one).to eq(other)
+    end
+  end
+
   it 'should raise exception when longitude is tried to be set to a not numeric value' do
     expect { @googleplex.longitude = 'invalid' }.to raise_exception 'Invalid longitude'
     expect { TrackPoint.new 'invalid', 0, 0 }.to raise_exception 'Invalid longitude'
