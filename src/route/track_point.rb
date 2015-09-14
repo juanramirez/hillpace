@@ -17,10 +17,10 @@ class TrackPoint
   end
 
   def ==(other)
-    other.is_a? self.class and
-      @longitude == other.longitude and
-      @latitude == other.latitude and
-      @elevation == other.elevation
+    self.class  == other.class &&
+    longitude   == other.longitude &&
+    latitude    == other.latitude &&
+    elevation   == other.elevation
   end
 
   def longitude=(longitude)
