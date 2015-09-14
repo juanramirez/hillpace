@@ -1,3 +1,5 @@
+require_relative '../pace'
+
 class PaceAdjuster
   def initialize(strategy)
     @strategy = strategy
