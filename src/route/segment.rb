@@ -5,9 +5,8 @@ class Segment
   attr_reader :track_points
 
   def initialize(track_points)
-    raise 'Invalid track point array to initialize Segment' if
-        not track_points.respond_to? 'each' or
-        track_points.any? {|track_point| not track_point.is_a? TrackPoint}
+    raise 'Invalid track point array to initialize Segment' unless track_points.respond_to?('each') &&
+      track_points.all? {|track_point| track_point.is_a? TrackPoint}
     @track_points = track_points
   end
 
@@ -87,7 +86,7 @@ class Segment
         subsegment_track_points = [interpolated_track_point]
       end
 
-      if accumulated_distance == distance_meters or index == track_points.length - 1
+      if accumulated_distance == distance_meters || index == track_points.length - 1
         subsegment_track_points << track_point
         result << (Segment.new subsegment_track_points)
         subsegment_track_points = [track_point]

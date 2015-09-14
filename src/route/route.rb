@@ -4,9 +4,8 @@ class Route
   attr_reader :segments
 
   def initialize(segments)
-    raise 'Invalid segment array to initialize Route' if
-        not segments.respond_to? 'each' or
-            segments.any? {|segment| not segment.is_a? Segment}
+    raise 'Invalid segment array to initialize Route' unless segments.respond_to?('each') &&
+      segments.all? {|segment| segment.is_a? Segment}
 
     unless segments.empty?
       last_track_point = segments.first.track_points.first

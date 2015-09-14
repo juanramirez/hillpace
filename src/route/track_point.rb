@@ -24,18 +24,18 @@ class TrackPoint
   end
 
   def longitude=(longitude)
-    raise 'Invalid longitude' if
-        not longitude.is_a? Numeric or
-        longitude < MINIMUM_LONGITUDE or
-        longitude > MAXIMUM_LONGITUDE
+    raise 'Invalid longitude' unless
+      longitude.is_a?(Numeric) &&
+      longitude >= MINIMUM_LONGITUDE &&
+      longitude <= MAXIMUM_LONGITUDE
     @longitude = longitude
   end
 
   def latitude=(latitude)
-    raise 'Invalid latitude' if
-        not latitude.is_a? Numeric or
-        latitude < MINIMUM_LATITUDE or
-        latitude > MAXIMUM_LATITUDE
+    raise 'Invalid latitude' unless
+      latitude.is_a?(Numeric) &&
+      latitude >= MINIMUM_LATITUDE &&
+      latitude <= MAXIMUM_LATITUDE
     @latitude = latitude
   end
 
