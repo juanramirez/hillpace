@@ -25,7 +25,7 @@ Go to the root directory of the package and run:
 * [src/input](src/input) contains classes for importing routes (at the moment, just GPX)
 * [src/pace](src/pace) contains the classes for calculating and converting paces
 * [specs](specs) contains the specs :)
-* [example.rb](example.rb) contains the example (see the [Example](README.md####Example) section)
+* [example.rb](example.rb) contains the example (see the [Example](README.md####example) section)
 
 #### Tests
 
