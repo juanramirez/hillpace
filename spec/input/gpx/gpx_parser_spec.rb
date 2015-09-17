@@ -1,7 +1,6 @@
 require 'rspec'
-require_relative '../../../src/input/gpx/gpx_parser'
 
-describe 'GpxParser' do
+describe GpxParser do
   before(:each) do
     @gpx_file_path = 'spec/resources/gpx/GranadaHalfMarathon.gpx'
   end

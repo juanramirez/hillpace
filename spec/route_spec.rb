@@ -1,8 +1,6 @@
 require 'rspec'
-require_relative '../../src/route/track_point'
-require_relative '../../src/route/route'
 
-describe 'Route' do
+describe Route do
   before(:each) do
     @madrid = TrackPoint.new -3.6795367, 40.4379543, 648
     @cadiz = TrackPoint.new -6.283333, 36.516667, 11
@@ -31,7 +29,7 @@ describe 'Route' do
     expect { Route.new [@chiclana_googleplex, 'foo'] }.to raise_exception 'Invalid segment array to initialize Route'
     expect { Route.new [@chiclana_googleplex, :bar] }.to raise_exception 'Invalid segment array to initialize Route'
     expect { Route.new [@chiclana_googleplex, @googleplex] }.to \
-      raise_exception 'Invalid segment array to initialize Route'
+    raise_exception 'Invalid segment array to initialize Route'
   end
 
   it 'should be initialized with an array of segments' do
@@ -44,7 +42,7 @@ describe 'Route' do
 
   it 'should give a distance which is the sum of the distances of all segments' do
     expect(@chiclana_madrid.distance_meters).to \
-      eq @chiclana_googleplex.distance_meters + @googleplex_madrid.distance_meters
+    eq @chiclana_googleplex.distance_meters + @googleplex_madrid.distance_meters
   end
 
   it 'should give a climb which is the sum of the climbs of all segments' do
@@ -63,6 +61,7 @@ describe 'Route' do
 
   it 'should give total downhills data which is the sum of the total downhills of all segments' do
     expect(@chiclana_madrid.total_downhills).to \
-      eq @chiclana_googleplex.total_downhills + @googleplex_madrid.total_downhills
+    eq @chiclana_googleplex.total_downhills + @googleplex_madrid.total_downhills
   end
+
 end

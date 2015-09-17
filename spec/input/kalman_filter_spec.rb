@@ -1,7 +1,6 @@
 require 'rspec'
-require_relative '../../../src/input/gpx/kalman_filter'
 
-describe 'KalmanFilter' do
+describe KalmanFilter do
   before(:each) do
     @kalman_filter = KalmanFilter.new
     @tp1 = TrackPoint.new 39, -2, 500

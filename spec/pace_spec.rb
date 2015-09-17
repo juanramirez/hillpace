@@ -1,7 +1,6 @@
 require 'rspec'
-require_relative '../../src/pace/pace'
 
-describe 'Pace' do
+describe Pace do
   it 'should return the same seconds per km it is initialized with' do
     pace = Pace.from_seconds_per_km 240
     expect(pace.seconds_per_km).to be_within(0.1).of 240

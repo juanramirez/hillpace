@@ -3,7 +3,7 @@ require_relative 'example'
 task :default => [:test]
 
 task :test do
-  sh 'bin/rspec'
+  sh 'bin/rspec spec/ --fail-fast'
 end
 
 task :example do

@@ -1,7 +1,6 @@
 require 'rspec'
-require_relative '../../src/route/segment'
 
-describe 'Segment' do
+describe Segment do
   before(:each) do
     @madrid = TrackPoint.new -3.6795367, 40.4379543, 648
     @chiclana = TrackPoint.new -6.15084, 36.4118808, 24

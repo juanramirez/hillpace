@@ -1,7 +1,6 @@
 require 'rspec'
-require_relative '../../../src/pace/adjuster/pace_adjuster'
 
-describe 'PaceAdjuster' do
+describe PaceAdjuster do
   it 'should use the provided strategy' do
     pace = Pace.from_seconds_per_km 240
     incline = 0.15

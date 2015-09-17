@@ -1,9 +1,14 @@
-require_relative 'src/input/gpx/gpx_validator'
-require_relative 'src/input/gpx/gpx_parser'
-require_relative 'src/pace/adjuster/pace_adjuster'
-require_relative 'src/pace/adjuster/strategies/mervs_running'
+require_relative 'lib/hillpace/input/gpx/gpx_validator'
+require_relative 'lib/hillpace/input/gpx/gpx_parser'
+require_relative 'lib/hillpace/pace_adjuster/pace_adjuster'
+require_relative 'lib/hillpace/pace_adjuster/strategies/mervs_running'
 
 class Example
+  include Hillpace
+  include Hillpace::Input::Gpx
+  include Hillpace::PaceAdjuster
+  include Hillpace::PaceAdjuster::Strategies
+
   def initialize
     @validator = GpxValidator.from_default_schema
   end
