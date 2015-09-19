@@ -1,3 +1,4 @@
+require 'bundler/gem_tasks'
 require_relative 'example'
 
 task :default => [:test]
