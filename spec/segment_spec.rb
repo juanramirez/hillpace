@@ -3,7 +3,10 @@ require 'rspec'
 describe Segment do
   before(:each) do
     @madrid = TrackPoint.new -3.6795367, 40.4379543, 648
+    @cadiz = TrackPoint.new -6.283333, 36.516667, 17
     @chiclana = TrackPoint.new -6.15084, 36.4118808, 24
+    @puerto_real = TrackPoint.new -6.191944, 36.529167, 12
+    @jerez = TrackPoint.new -6.116667, 36.7, 43
     @granada = TrackPoint.new -3.5922032, 37.1809462, 700
     @veleta = TrackPoint.new -3.348333, 37.050556, 3396
     @googleplex = TrackPoint.new -122.0840575, 37.4219999, 6
@@ -38,22 +41,26 @@ describe Segment do
     expect(segment.distance_meters).to be_within(5000).of 740000
   end
 
-  it 'should be splitted into 740 or 741 segments of (approx.) 1km of distance for Madrid - Chiclana - Granada' do
-    segment = Segment.new [@madrid, @chiclana, @granada]
-    subsegments = segment.split_by_distance_meters 1000
-    expect(subsegments.length).to be_between 740, 741
+  it 'should be splitted into two segments when segment distance is larger than the given one' do
+    segment = Segment.new [@chiclana, @cadiz, @puerto_real, @jerez]
+    subsegments = segment.split 1000
+    expect(subsegments.length).to eq 2
 
-    subsegments.each_with_index do |subsegment, index|
-      break if index == subsegments.length - 1
-      # Linear interpolation is ok for normal track point frequency, but for just three points and so far away
-      # it's assumable to have a +-10 meters error.
-      expect(subsegment.distance_meters).to be_within(10).of 1000
-    end
+    expect(subsegments.first.track_points.length).to eq 2
+    expect(subsegments.last.track_points.length).to eq 4
 
-    subsegments.each_with_index do |subsegment, index|
-      next if index == 0
-      expect(subsegment.track_points.first).to eq subsegments[index - 1].track_points.last
-    end
+    # Linear interpolation is ok for normal track point frequency, but for just four points and several km away
+    # it's assumable to have a +-1 meter error.
+    expect(subsegments.first.distance_meters).to be_within(1).of 1000
+    expect(subsegments.last.distance_meters).to be_within(1).of (segment.distance_meters - 1000)
+  end
+
+  it 'should return an array with the input segment when segment distance is shorter than the given one' do
+    segment = Segment.new [@chiclana, @cadiz, @puerto_real, @jerez]
+    segment_distance = segment.distance_meters
+    subsegments = segment.split (segment_distance + 1)
+    expect(subsegments.length).to eq 1
+    expect(subsegments.first).to eq segment
   end
 
   it 'should give 52 meters of climb for Madrid - Chiclana - Granada' do

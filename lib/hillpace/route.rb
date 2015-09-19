@@ -36,5 +36,20 @@ module Hillpace
     def total_downhills
       segments.inject(0) {|result, segment| result + segment.total_downhills}
     end
+
+    def split!(distance_meters)
+      accumulated_distance = 0
+
+      segments.each_with_index do |segment, index|
+        segment_distance = segment.distance_meters
+        if accumulated_distance + segment_distance > distance_meters
+          subsegments = segment.split (distance_meters - accumulated_distance)
+          segments[index] = subsegments
+          segments.flatten!
+          break
+        end
+        accumulated_distance += segment_distance
+      end
+    end
   end
 end

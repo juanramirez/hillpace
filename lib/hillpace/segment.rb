@@ -10,6 +10,11 @@ module Hillpace
       @track_points = track_points
     end
 
+    def ==(other)
+      self.class == other.class &&
+          track_points == other.track_points
+    end
+
     def distance_meters
       return 0 if track_points.length <= 1
 
@@ -61,7 +66,7 @@ module Hillpace
       result
     end
 
-    def split_by_distance_meters(distance_meters)
+    def split(distance_meters)
       result = []
       accumulated_distance = 0
       latest_track_point = track_points.first
@@ -72,32 +77,23 @@ module Hillpace
         distance_delta = latest_track_point.distance_meters_to track_point
         accumulated_distance += distance_delta
 
-        # in case the distance exceeds the reference distance, we add an interpolated track point
-        # both to the end of the actual subsegment and to the start of the next one
-        while accumulated_distance > distance_meters
-          bias = (distance_meters - (accumulated_distance - distance_delta)) / distance_delta
-          interpolated_track_point = latest_track_point.get_linear_interpolation_with track_point, bias
-          subsegment_track_points << interpolated_track_point
-          result << (Segment.new subsegment_track_points)
-
-          accumulated_distance -= distance_meters
-          distance_delta = accumulated_distance
-          latest_track_point = interpolated_track_point
-          subsegment_track_points = [interpolated_track_point]
+        if result.empty?
+          # in case the distance exceeds the reference distance, we add an interpolated track point
+          # both to the end of the actual subsegment and to the start of the next one
+          if accumulated_distance > distance_meters
+            bias = (distance_meters - (accumulated_distance - distance_delta)) / distance_delta
+            interpolated_track_point = latest_track_point.get_linear_interpolation_with track_point, bias
+            subsegment_track_points << interpolated_track_point
+            result << (Segment.new subsegment_track_points)
+            subsegment_track_points = [interpolated_track_point]
+          end
         end
 
-        if accumulated_distance == distance_meters || index == track_points.length - 1
-          subsegment_track_points << track_point
-          result << (Segment.new subsegment_track_points)
-          subsegment_track_points = [track_point]
-          latest_track_point = track_point
-        elsif accumulated_distance < distance_meters
-          subsegment_track_points << track_point
-          latest_track_point = track_point
-        end
+        subsegment_track_points << track_point
+        latest_track_point = track_point
       end
 
-      result
+      result << (Segment.new subsegment_track_points)
     end
   end
 end

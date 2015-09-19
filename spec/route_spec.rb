@@ -5,6 +5,8 @@ describe Route do
     @madrid = TrackPoint.new -3.6795367, 40.4379543, 648
     @cadiz = TrackPoint.new -6.283333, 36.516667, 11
     @chiclana = TrackPoint.new -6.15084, 36.4118808, 24
+    @puerto_real = TrackPoint.new -6.191944, 36.529167, 12
+    @jerez = TrackPoint.new -6.116667, 36.7, 43
     @granada = TrackPoint.new -3.5922032, 37.1809462, 700
     @new_york = TrackPoint.new -73.94, 40.67, 10
     @googleplex = TrackPoint.new -122.0840575, 37.4219999, 6
@@ -12,8 +14,11 @@ describe Route do
     @chiclana_googleplex = Segment.new [@chiclana, @cadiz, @granada, @madrid, @new_york, @googleplex]
     @granada_new_york = Segment.new [@granada, @cadiz, @granada, @madrid, @googleplex, @new_york]
     @googleplex_madrid = Segment.new [@googleplex, @granada, @madrid]
+    @chiclana_cadiz = Segment.new [@chiclana, @cadiz]
+    @cadiz_jerez = Segment.new [@cadiz, @puerto_real, @jerez]
 
     @chiclana_madrid = Route.new [@chiclana_googleplex, @googleplex_madrid]
+    @chiclana_jerez = Route.new [@chiclana_cadiz, @cadiz_jerez]
   end
 
   it 'should not be initialized with anything different than an array' do
@@ -62,6 +67,16 @@ describe Route do
   it 'should give total downhills data which is the sum of the total downhills of all segments' do
     expect(@chiclana_madrid.total_downhills).to \
     eq @chiclana_googleplex.total_downhills + @googleplex_madrid.total_downhills
+  end
+
+  it 'should be splitted if distance is longer than the total route distance' do
+    @chiclana_jerez.split! 1000
+    expect(@chiclana_jerez.segments.length).to eq 3
+  end
+
+  it 'should not be splitted if distance is shorter than the total route distance' do
+    @chiclana_jerez.split! 100000
+    expect(@chiclana_jerez.segments.length).to eq 2
   end
 
 end

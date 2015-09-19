@@ -21,15 +21,20 @@ class Example
 
     puts 'Example: Granada Half Marathon (from flat surface pace: 4:00 min/km)'
     routes.each do |route|
-      route.segments.each_with_index do |segment|
-        subsegments = segment.split_by_distance_meters 1000
 
-        subsegments.each_with_index do |subsegment, subsegment_index|
-          incline = subsegment.incline
-          adjusted_pace = pace_adjuster.adjust_pace pace, incline
-          puts "Km #{subsegment_index + 1} (incline #{(incline * 100).round(2)}%): " +
-            "#{adjusted_pace.minutes_per_km} min/km"
-        end
+      distance = 1000
+      loop do
+        route_segments_count = route.segments.length
+        route.split! distance
+        distance += 1000
+        break if route_segments_count == route.segments.length
+      end
+
+      route.segments.each_with_index do |segment, index|
+        incline = segment.incline
+        adjusted_pace = pace_adjuster.adjust_pace pace, incline
+        puts "Km #{index + 1} (incline #{(incline * 100).round(2)}%): " +
+                 "#{adjusted_pace.minutes_per_km} min/km"
       end
     end
   end
