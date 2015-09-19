@@ -1,5 +1,3 @@
-require_relative '../track_point'
-
 module Hillpace
   module Input
     # See https://en.wikipedia.org/wiki/Kalman_filter

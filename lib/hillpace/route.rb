@@ -1,5 +1,3 @@
-require_relative 'segment'
-
 module Hillpace
   class Route
     attr_reader :segments

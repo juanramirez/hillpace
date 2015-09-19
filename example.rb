@@ -1,7 +1,12 @@
-require_relative 'lib/hillpace/input/gpx/gpx_validator'
-require_relative 'lib/hillpace/input/gpx/gpx_parser'
+require_relative 'lib/hillpace/pace'
+require_relative 'lib/hillpace/route'
+require_relative 'lib/hillpace/segment'
+require_relative 'lib/hillpace/track_point'
 require_relative 'lib/hillpace/pace_adjuster/pace_adjuster'
 require_relative 'lib/hillpace/pace_adjuster/strategies/mervs_running'
+require_relative 'lib/hillpace/input/gpx/gpx_validator'
+require_relative 'lib/hillpace/input/gpx/gpx_parser'
+require_relative 'lib/hillpace/input/kalman_filter'
 
 class Example
   include Hillpace

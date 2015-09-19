@@ -1,5 +1,4 @@
 require 'geokit'
-require_relative 'track_point'
 
 module Hillpace
   class Segment

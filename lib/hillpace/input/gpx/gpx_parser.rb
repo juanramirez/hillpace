@@ -1,7 +1,5 @@
 require 'nokogiri'
 require 'geoelevation'
-require_relative '../kalman_filter'
-require_relative '../../route'
 
 module Hillpace
   module Input
