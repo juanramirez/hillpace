@@ -43,5 +43,5 @@ class Example
 end
 
 example = Example.new
-example.get_adjusted_paces 'spec/resources/gpx/GranadaHalfMarathon.gpx', 240
+example.get_adjusted_paces 'resources/gpx/GranadaHalfMarathon.gpx', 240
 

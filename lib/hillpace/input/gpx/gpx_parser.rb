@@ -45,7 +45,8 @@ module Hillpace
           segment_node.search('trkpt').each do |track_point_node|
             track_point = parse_track_point track_point_node
             time = parse_track_point_time track_point_node
-            track_points << (kalman_filter.filter track_point, time)
+            track_point = kalman_filter.filter track_point, time unless time.nil?
+            track_points << track_point
           end
 
           Segment.new track_points
@@ -66,7 +67,11 @@ module Hillpace
         end
 
         def parse_track_point_time(track_point_node)
-          Time.parse track_point_node.at('time').content
+          unless track_point_node.search('time').empty?
+            Time.parse track_point_node.at('time').content
+          else
+            nil
+          end
         end
 
         private_class_method :new

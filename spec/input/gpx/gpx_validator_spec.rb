@@ -1,9 +1,9 @@
 require 'rspec'
 
-DEFAULT_SCHEMA_FILE = 'spec/resources/schema/gpx.xsd'
+DEFAULT_SCHEMA_FILE = 'resources/schema/gpx.xsd'
 DEFAULT_SCHEMA_URL = 'http://www.topografix.com/gpx/1/1/gpx.xsd'
-VALID_GPX_FILE = 'spec/resources/gpx/GranadaHalfMarathon.gpx'
-INVALID_GPX_FILE = 'spec/resources/gpx/GranadaHalfMarathonInvalid.gpx'
+VALID_GPX_FILE = 'resources/gpx/GranadaHalfMarathon.gpx'
+INVALID_GPX_FILE = 'resources/gpx/GranadaHalfMarathonInvalid.gpx'
 
 describe GpxValidator do
   it 'should validate a valid gpx document when using default schema' do
