@@ -1,5 +1,4 @@
 require 'bundler/gem_tasks'
-require_relative 'example'
 
 task :default => [:build]
 
@@ -12,6 +11,5 @@ task :test do
 end
 
 task :example do
-  example = Example.new
-  example.get_adjusted_paces 'spec/resources/gpx/GranadaHalfMarathon.gpx', 240
+  sh './example.rb'
 end

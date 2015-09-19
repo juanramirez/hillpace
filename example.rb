@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby
+
 require 'hillpace'
 
 class Example
@@ -39,4 +41,7 @@ class Example
     end
   end
 end
+
+example = Example.new
+example.get_adjusted_paces 'spec/resources/gpx/GranadaHalfMarathon.gpx', 240
 
