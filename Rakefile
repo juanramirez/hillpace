@@ -1,7 +1,11 @@
 require 'bundler/gem_tasks'
 require_relative 'example'
 
-task :default => [:test]
+task :default => [:build]
+
+task :build do
+  sh 'bundle install'
+end
 
 task :test do
   sh 'rspec spec/ --fail-fast'
