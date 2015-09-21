@@ -7,6 +7,7 @@ task :build do
 end
 
 task :test do
+  sh 'rspec --init'
   sh 'rspec spec/ --fail-fast'
 end
 
