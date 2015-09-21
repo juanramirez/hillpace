@@ -1,6 +1,6 @@
 # HillPace
 
-HillPace is a library for planning running races. It can take the GPX of a route and a reference pace (the pace you would go on a flat course of the same distance) and generate planned paces by segments, based on the incline of each segment.
+HillPace is a library for planning running races. It can take the GPX of a route and a reference pace (the pace you would go on ideal conditions) and generate planned paces by segments, based on configurable external factors like the climb grade of each segment.
 
 ### Status
 
@@ -9,9 +9,15 @@ This is a work in progress, but the core of the code is functional.
 #### Installation
 
 Go to the root directory of the package and run:
-```bundle install --path vendor/bundle --binstubs```
+```
+bundle exec rake
+```
+or just
+```
+bundle install
+```
 
-#### Dependencies
+#### Main dependencies
 
 * [Nokogiri](http://www.nokogiri.org/)
 * [Geokit](https://github.com/geokit/geokit)
@@ -21,21 +27,25 @@ Go to the root directory of the package and run:
 
 #### Code organization
 
-* [src/route](src/route): contains the core classes of the package, which manage routes, segments and track points
-* [src/input](src/input) contains classes for importing routes (at the moment, just GPX)
-* [src/pace](src/pace) contains the classes for calculating and converting paces
+* [lib/hillpace](lib/hillpace): contains the core classes of the package, which manage paces, routes, segments and track points
+* [lib/hillpace/input](lib/hillpace/input) contains classes for importing routes (at the moment, just GPX)
+* [lib/hillpace/pace_adjuster](lib/hillpace/pace_adjuster) contains the pace adjuster and its strategies
 * [specs](specs) contains the specs :)
-* [example.rb](example.rb) contains the example (see the [Example](README.md####example) section)
+* [example.rb](example.rb) contains an example of use (see the [Example](README.md####example) section)
 
 #### Tests
 
-You can run the tests typing:
-```bundle exec rake```
+All classes in the codebase are tested, and you can run those tests by typing:
+```
+bundle exec rake tests
+```
 
 #### Example
 
 An example can be found in [example.rb](example.rb), and it can be run this way:
-```bundle exec rake example```
+```
+bundle exec rake example
+```
 
 We use a GPX exported from [this Garmin Connect activity](https://connect.garmin.com/modern/activity/770166012) which maps the [2015 Granada Half Marathon](http://www.granada.es/inet/MediaMaraton.nsf/xnotweb/3F5884FDDFD1A9EDC1257E43004048B9?open).
 
