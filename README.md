@@ -10,10 +10,6 @@ This is a work in progress, but the core of the code is functional.
 
 Go to the root directory of the package and run:
 ```
-bundle exec rake
-```
-or just
-```
 bundle install
 ```
 
