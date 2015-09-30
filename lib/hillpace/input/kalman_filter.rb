@@ -5,15 +5,21 @@ module Hillpace
     class KalmanFilter
       ACCURACY = 3.0
 
+      # Initializes a KalmanFilter object.
       def initialize
         reset
       end
 
+      # Resets a KalmanFilter object.
       def reset
         @variance = -1.0
       end
 
-      def filter(track_point, time)
+      # Applies the filter to a track point
+      # @param track_point [TrackPoint] The track point which will be filtered.
+      # @param time [Time] The time when the point was tracked.
+      # @return [TrackPoint]
+      def apply(track_point, time)
         if @variance < 0
           @track_point = track_point
           @time = time
@@ -21,7 +27,7 @@ module Hillpace
         else
           time_delta = time - @time
           if time_delta > 0
-            @variance += time_delta * (get_speed(track_point, time_delta) ** 2)
+            @variance += time_delta * (get_speed(@track_point, track_point, time_delta) ** 2)
             @time = time
           end
 
@@ -38,8 +44,13 @@ module Hillpace
 
       private
 
-      def get_speed(track_point, time_delta)
-        distance_delta = @track_point.distance_meters_to track_point
+      # Gets the speed from two trackpoints with their time difference.
+      # @param previous_track_point [TrackPoint] The previous track point.
+      # @param track_point [TrackPoint] The current track point
+      # @param time_delta [Number] The time difference between the track points.
+      # @return [Number]
+      def get_speed(previous_track_point, track_point, time_delta)
+        distance_delta = previous_track_point.distance_meters_to track_point
         distance_delta / time_delta
       end
     end

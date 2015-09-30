@@ -95,7 +95,7 @@ module Hillpace
 
           unless track_point_node.search('time').empty?
             time = Time.parse track_point_node.at('time').content
-            track_point = @kalman_filter.filter track_point, time
+            track_point = @kalman_filter.apply track_point, time
           end
 
           track_point
