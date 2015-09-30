@@ -6,6 +6,10 @@ module Hillpace
       ACCURACY = 3.0
 
       def initialize
+        reset
+      end
+
+      def reset
         @variance = -1.0
       end
 

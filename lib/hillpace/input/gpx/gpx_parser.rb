@@ -12,6 +12,7 @@ module Hillpace
         # @param gpx_content [string] The content of a GPX file.
         def initialize(gpx_content)
           @document = Nokogiri::XML gpx_content
+          @kalman_filter = KalmanFilter.new
           @srtm = GeoElevation::Srtm.new
         end
 
@@ -59,14 +60,11 @@ module Hillpace
         # @param segment_node [Nokogiri::XML::Node] The XML node corresponding to the segment.
         # @return [Segment]
         def parse_segment(segment_node)
-          kalman_filter = KalmanFilter.new
+          @kalman_filter.reset
           track_points = Array.new
 
           segment_node.search('trkpt').each do |track_point_node|
-            track_point = parse_track_point track_point_node
-            time = parse_track_point_time track_point_node
-            track_point = kalman_filter.filter track_point, time unless time.nil?
-            track_points << track_point
+            track_points << parse_track_point(track_point_node)
           end
 
           Segment.new track_points
@@ -93,15 +91,14 @@ module Hillpace
           # (see https://en.wikipedia.org/wiki/Shuttle_Radar_Topography_Mission)
           elevation = @srtm.get_elevation(latitude, longitude)
 
-          TrackPoint.new longitude, latitude, elevation
-        end
+          track_point = TrackPoint.new longitude, latitude, elevation
 
-        def parse_track_point_time(track_point_node)
           unless track_point_node.search('time').empty?
-            Time.parse track_point_node.at('time').content
-          else
-            nil
+            time = Time.parse track_point_node.at('time').content
+            track_point = @kalman_filter.filter track_point, time
           end
+
+          track_point
         end
 
         private_class_method :new
