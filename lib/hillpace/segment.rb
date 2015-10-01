@@ -1,20 +1,30 @@
 require 'geokit'
 
 module Hillpace
+  # Represents a geographic segment in the Earth.
   class Segment
     attr_reader :track_points
 
+    # Initializes a Segment object.
+    # @param track_points [Array<TrackPoint>] The track points of the segments.
+    # @raise 'Invalid track point array to initialize Segment' if _track_points_ is not a collection of [TrackPoint]
+    #   objects
     def initialize(track_points)
       raise 'Invalid track point array to initialize Segment' unless track_points.respond_to?('each') &&
           track_points.all? {|track_point| track_point.is_a? TrackPoint}
       @track_points = track_points
     end
 
+    # Overwrites the #== operator to be able to use custom getters.
+    # @param other [Segment] The other segment to be compared.
+    # @return [boolean]
     def ==(other)
       self.class == other.class &&
           track_points == other.track_points
     end
 
+    # Measures the distance of the segment, in meters.
+    # @return [Number]
     def distance_meters
       return 0 if track_points.length <= 1
 
@@ -28,16 +38,22 @@ module Hillpace
       result
     end
 
+    # Measures the elevation difference from the start to the end of the segment, in meters.
+    # @return [Number]
     def climb
       return 0 if track_points.length <= 1
       track_points.first.climb_to track_points.last
     end
 
+    # Measures the climb of the segment relative to its distance.
+    # @return [Number]
     def incline
       return 0 if track_points.length <= 1
       self.climb / self.distance_meters
     end
 
+    # Measures the sum of uphills between track points of the segment.
+    # @return [Number]
     def total_uphills
       return 0 if track_points.length <= 1
 
@@ -52,6 +68,8 @@ module Hillpace
       result
     end
 
+    # Measures the sum of downhills between track points of the segment.
+    # @return [Number]
     def total_downhills
       return 0 if track_points.length <= 1
 
@@ -66,6 +84,9 @@ module Hillpace
       result
     end
 
+    # Returns an array of segments, result of splitting _self_ in the distance indicated.
+    # @param distance_meters [Number] The distance in the segment where it should be splitted.
+    # @return [Array<Segment>]
     def split(distance_meters)
       result = []
       accumulated_distance = 0
