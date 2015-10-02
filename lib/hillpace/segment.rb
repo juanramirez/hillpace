@@ -1,14 +1,14 @@
 require 'geokit'
 
 module Hillpace
-  # Represents a geographic segment in the Earth.
+  # Represents a geographic segment in the Earth, made out of sorted track points.
   class Segment
     attr_reader :track_points
 
     # Initializes a Segment object.
-    # @param track_points [Array<TrackPoint>] The track points of the segments.
+    # @param track_points [Array<TrackPoint>] The track points of the segment.
     # @raise 'Invalid track point array to initialize Segment' if _track_points_ is not a collection of [TrackPoint]
-    #   objects
+    #   objects.
     def initialize(track_points)
       raise 'Invalid track point array to initialize Segment' unless track_points.respond_to?('each') &&
           track_points.all? {|track_point| track_point.is_a? TrackPoint}

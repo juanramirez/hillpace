@@ -1,7 +1,13 @@
 module Hillpace
+  # Represents a geographic route in the Earth, made out of consecutive segments.
   class Route
     attr_reader :segments
 
+    # Initializes a Route object.
+    # @param segments [Array<Segment>] The segments of the route.
+    # @raise 'Invalid segment array to initialize Route' if _segments_ is not a collection of [Segment] objects.
+    # @raise 'Segments must be consecutive' if any of the _segments_ start is not the same point of the previous segment
+    #   end.
     def initialize(segments)
       raise 'Invalid segment array to initialize Route' unless segments.respond_to?('each') &&
           segments.all? {|segment| segment.is_a? Segment}
@@ -17,26 +23,38 @@ module Hillpace
       @segments = segments
     end
 
+    # Measures the distance of the route, in meters.
+    # @return [Number]
     def distance_meters
       segments.inject(0) {|result, segment| result + segment.distance_meters}
     end
 
+    # Measures the elevation difference from the start to the end of the route, in meters.
+    # @return [Number]
     def climb
       segments.inject(0) {|result, segment| result + segment.climb}
     end
 
+    # Measures the climb of the route relative to its distance.
+    # @return [Number]
     def incline
       self.climb / self.distance_meters
     end
 
+    # Measures the sum of uphills between segments of the route.
+    # @return [Number]
     def total_uphills
       segments.inject(0) {|result, segment| result + segment.total_uphills}
     end
 
+    # Measures the sum of downhills between segments of the route.
+    # @return [Number]
     def total_downhills
       segments.inject(0) {|result, segment| result + segment.total_downhills}
     end
 
+    # Splits the segment inside the route that is in the distance indicated.
+    # @param distance_meters [Number] The distance in the route where the segment should be splitted.
     def split!(distance_meters)
       accumulated_distance = 0
 
