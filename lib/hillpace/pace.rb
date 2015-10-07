@@ -20,7 +20,7 @@ module Hillpace
     end
 
     # Creates a new Pace object from a pace expressed in meters per second.
-    # @param seconds_per_km [Number] The pace expressed in meters per second.
+    # @param meters_per_second [Number] The pace expressed in meters per second.
     def self.from_meters_per_second(meters_per_second)
       new meters_per_second
     end
@@ -33,7 +33,7 @@ module Hillpace
 
     # Returns the pace in minutes per kilometer.
     # @return [String]
-    # @raise 'Too slow pace: more than an hour per kilometer' if the pace is slower than an hour per kilometer.
+    # @raise [RuntimeError] if the pace is slower than an hour per kilometer.
     def minutes_per_km
       if seconds_per_km >= SECONDS_IN_AN_HOUR
         raise 'Too slow pace: more than an hour per kilometer.'

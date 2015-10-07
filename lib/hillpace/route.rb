@@ -5,8 +5,8 @@ module Hillpace
 
     # Initializes a Route object.
     # @param segments [Array<Segment>] The segments of the route.
-    # @raise 'Invalid segment array to initialize Route' if _segments_ is not a collection of [Segment] objects.
-    # @raise 'Segments must be consecutive' if any of the _segments_ start is not the same point of the previous segment
+    # @raise [RuntimeError] if _segments_ is not a collection of [Segment] objects.
+    # @raise [RuntimeError] if any of the _segments_ start is not the same point of the previous segment
     #   end.
     def initialize(segments)
       raise 'Invalid segment array to initialize Route' unless segments.respond_to?('each') &&

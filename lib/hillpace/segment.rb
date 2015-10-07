@@ -7,7 +7,7 @@ module Hillpace
 
     # Initializes a Segment object.
     # @param track_points [Array<TrackPoint>] The track points of the segment.
-    # @raise 'Invalid track point array to initialize Segment' if _track_points_ is not a collection of [TrackPoint]
+    # @raise [RuntimeError] if _track_points_ is not a collection of [TrackPoint]
     #   objects.
     def initialize(track_points)
       raise 'Invalid track point array to initialize Segment' unless track_points.respond_to?('each') &&

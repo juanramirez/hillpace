@@ -17,14 +17,14 @@ module Hillpace
         end
 
         # Creates a new GpxValidator object from a GPX schema file path.
-        # @param schema_path [string] The path of the GPX schema file to use.
+        # @param schema_path [String] The path of the GPX schema file to use.
         # @return [GpxParser]
         def self.from_file(schema_path)
           new File.open(schema_path)
         end
 
         # Creates a new GpxValidator object from a GPX schema file URL.
-        # @param schema_path [string] The URL of the GPX schema file to use.
+        # @param schema_url [String] The URL of the GPX schema file to use.
         # @return [GpxParser]
         def self.from_url(schema_url)
           new open(schema_url)

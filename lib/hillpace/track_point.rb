@@ -34,7 +34,7 @@ module Hillpace
 
     # Setter for the longitude class member.
     # @param longitude [Number] The longitude value to be set.
-    # @raise 'Invalid longitude' if _longitude_ is invalid
+    # @raise [RuntimeError] if _longitude_ is invalid
     def longitude=(longitude)
       raise 'Invalid longitude' unless
           longitude.is_a?(Numeric) &&
@@ -45,7 +45,7 @@ module Hillpace
 
     # Setter for the latitude class member.
     # @param latitude [Number] The latitude value to be set.
-    # @raise 'Invalid latitude' if _latitude_ is invalid
+    # @raise [RuntimeError] if _latitude_ is invalid
     def latitude=(latitude)
       raise 'Invalid latitude' unless
           latitude.is_a?(Numeric) &&
@@ -56,7 +56,7 @@ module Hillpace
 
     # Setter for the elevation class member.
     # @param elevation [Number] The elevation value to be set.
-    # @raise 'Invalid elevation' if _elevation_ is not Numeric
+    # @raise [RuntimeError] if _elevation_ is not Numeric
     def elevation=(elevation)
       raise 'Invalid elevation' unless elevation.is_a? Numeric
       @elevation = elevation
@@ -64,7 +64,7 @@ module Hillpace
 
     # Measures the distance to other track point, in meters.
     # @param other [TrackPoint] The other track point to compare.
-    # @raise 'Invalid track point' if _other_ is not a TrackPoint object
+    # @raise [RuntimeError] if _other_ is not a TrackPoint object
     # @return [Number]
     def distance_meters_to(other)
       raise 'Invalid track point' unless other.is_a? TrackPoint
@@ -75,7 +75,7 @@ module Hillpace
 
     # Measures the elevation difference to other track point, in meters.
     # @param other [TrackPoint] The other track point to compare.
-    # @raise 'Invalid track point' if _other_ is not a TrackPoint object
+    # @raise [RuntimeError] if _other_ is not a TrackPoint object
     # @return [Number]
     def climb_to(other)
       raise 'Invalid track point' unless other.is_a? TrackPoint
@@ -84,7 +84,7 @@ module Hillpace
 
     # Measures the elevation difference to other track point relative to the distance to it.
     # @param other [TrackPoint] The other track point to compare.
-    # @raise 'Invalid track point' if _other_ is not a TrackPoint object
+    # @raise [RuntimeError] if _other_ is not a TrackPoint object
     # @return [Number]
     def incline_to(other)
       raise 'Invalid track point' unless other.is_a? TrackPoint
@@ -99,7 +99,7 @@ module Hillpace
     # @param other [TrackPoint] The other track point to compare.
     # @param bias [Number] Value which will determine the position in that line. *0* would be the position of _self_,
     #   *1* would be _other_ position.
-    # @raise 'Invalid track point' if _other_ is not a TrackPoint object
+    # @raise [Runtimeerror] if _other_ is not a TrackPoint object
     # @return [Number]
     def get_linear_interpolation_with(other, bias = 0.5)
       raise 'Invalid track point' unless other.is_a? TrackPoint
