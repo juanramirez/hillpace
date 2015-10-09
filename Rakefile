@@ -18,3 +18,9 @@ end
 task :example do
   sh './example.rb'
 end
+
+task :clean do
+  sh 'rm -rf pkg'
+  sh 'rm -rf doc'
+  sh 'rm -rf bin'
+end
