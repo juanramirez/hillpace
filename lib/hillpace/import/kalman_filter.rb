@@ -1,5 +1,5 @@
 module Hillpace
-  module Input
+  module Import
     # See https://en.wikipedia.org/wiki/Kalman_filter
     # Based on this implementation by Stochastically: http://stackoverflow.com/a/15657798/1147175
     class KalmanFilter

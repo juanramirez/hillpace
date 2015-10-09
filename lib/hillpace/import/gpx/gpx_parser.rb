@@ -2,7 +2,7 @@ require 'nokogiri'
 require 'geoelevation'
 
 module Hillpace
-  module Input
+  module Import
     module Gpx
       # Parser for GPX files (see http://www.topografix.com/gpx.asp).
       class GpxParser

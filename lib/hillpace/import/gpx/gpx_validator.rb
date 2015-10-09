@@ -2,7 +2,7 @@ require 'nokogiri'
 require 'open-uri'
 
 module Hillpace
-  module Input
+  module Import
     module Gpx
       # Validator for GPX files (see http://www.topografix.com/gpx.asp).
       class GpxValidator

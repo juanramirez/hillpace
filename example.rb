@@ -4,7 +4,7 @@ require 'hillpace'
 
 class Example
   include Hillpace
-  include Hillpace::Input::Gpx
+  include Hillpace::Import::Gpx
   include Hillpace::PaceAdjuster
   include Hillpace::PaceAdjuster::Strategies
 
