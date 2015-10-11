@@ -3,8 +3,8 @@ require 'rspec'
 describe Segment do
   before(:each) do
     @madrid = TrackPoint.new -3.6795367, 40.4379543, 648
-    @cadiz = TrackPoint.new -6.283333, 36.516667, 17
-    @chiclana = TrackPoint.new -6.15084, 36.4118808, 24
+    @cadiz = TrackPoint.new -6.283333, 36.516667, 17, Time.new(2015, 10, 1, 10)
+    @chiclana = TrackPoint.new -6.15084, 36.4118808, 24, Time.new(2015, 10, 1, 11, 30)
     @puerto_real = TrackPoint.new -6.191944, 36.529167, 12
     @jerez = TrackPoint.new -6.116667, 36.7, 43
     @granada = TrackPoint.new -3.5922032, 37.1809462, 700
@@ -81,5 +81,15 @@ describe Segment do
   it 'should give 1318 meters of total downhills for Madrid - GooglePlex - Granada - Chiclana' do
     segment = Segment.new [@madrid, @googleplex, @granada, @chiclana]
     expect(segment.total_downhills).to eq 1318
+  end
+
+  it 'should give 5400 seconds of duration for Cádiz - Chiclana' do
+    segment = Segment.new [@cadiz, @chiclana]
+    expect(segment.duration).to eq 5400
+  end
+
+  it 'should give a pace of around 5:30 min/km for Cádiz - Chiclana' do
+    segment = Segment.new [@cadiz, @chiclana]
+    expect(segment.pace.seconds_per_km).to be_within(10).of 330
   end
 end

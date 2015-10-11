@@ -84,6 +84,18 @@ module Hillpace
       result
     end
 
+    # Measures the duration of the segment, in seconds.
+    # @return [Number]
+    def duration
+      track_points.last.time.to_f - track_points.first.time.to_f
+    end
+
+    # Measures the pace of the segment.
+    # @return [Pace]
+    def pace
+      Pace.from_meters_per_second(distance_meters / duration)
+    end
+
     # Returns an array of segments, result of splitting _self_ in the distance indicated.
     # @param distance_meters [Number] The distance in the segment where it should be splitted.
     # @return [Array<Segment>]
