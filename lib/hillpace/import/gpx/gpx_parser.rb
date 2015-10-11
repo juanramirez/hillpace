@@ -92,13 +92,8 @@ module Hillpace
           elevation = @srtm.get_elevation(latitude, longitude)
 
           track_point = TrackPoint.new longitude, latitude, elevation
-
-          unless track_point_node.search('time').empty?
-            time = Time.parse track_point_node.at('time').content
-            track_point = @kalman_filter.apply track_point, time
-          end
-
-          track_point
+          track_point.time = Time.parse track_point_node.at('time').content unless track_point_node.search('time').empty?
+          track_point = @kalman_filter.apply track_point
         end
 
         private_class_method :new

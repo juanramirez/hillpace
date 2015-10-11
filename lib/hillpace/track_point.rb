@@ -3,7 +3,7 @@ require 'geokit'
 module Hillpace
   # Represents a geographic track point in the Earth.
   class TrackPoint
-    attr_reader :longitude, :latitude, :elevation
+    attr_reader :longitude, :latitude, :elevation, :time
 
     MINIMUM_LONGITUDE = -180
     MAXIMUM_LONGITUDE = 180
@@ -16,10 +16,12 @@ module Hillpace
     # @param longitude [Number] The geographic longitude of the track point.
     # @param latitude [Number] The geographic latitude of the track point.
     # @param elevation [Number] The elevation of the track point relative to sea level.
-    def initialize(longitude, latitude, elevation)
+    # @param time [Time] The time when the track point was registered.
+    def initialize(longitude, latitude, elevation, time = nil)
       self.longitude = longitude
       self.latitude = latitude
       self.elevation = elevation
+      self.time = time
     end
 
     # Overwrites the #== operator to be able to use custom getters.
@@ -29,7 +31,8 @@ module Hillpace
       self.class  == other.class &&
           longitude   == other.longitude &&
           latitude    == other.latitude &&
-          elevation   == other.elevation
+          elevation   == other.elevation &&
+          time        == other.time
     end
 
     # Setter for the longitude class member.
@@ -56,10 +59,18 @@ module Hillpace
 
     # Setter for the elevation class member.
     # @param elevation [Number] The elevation value to be set.
-    # @raise [RuntimeError] if _elevation_ is not Numeric
+    # @raise [RuntimeError] if _elevation_ is not [Numeric]
     def elevation=(elevation)
       raise 'Invalid elevation' unless elevation.is_a? Numeric
       @elevation = elevation
+    end
+
+    # Setter for the time class member.
+    # @param time [Time] The time to be set.
+    # @raise [RuntimeError] if _time_ is not a [Time]
+    def time=(time)
+      raise 'Invalid time' unless time.nil? || time.is_a?(Time)
+      @time = time
     end
 
     # Measures the distance to other track point, in meters.
@@ -105,7 +116,8 @@ module Hillpace
       raise 'Invalid track point' unless other.is_a? TrackPoint
       TrackPoint.new longitude * (1.0 - bias) + other.longitude * bias,
                      latitude * (1.0 - bias) + other.latitude * bias,
-                     elevation * (1.0 - bias) + other.elevation * bias
+                     elevation * (1.0 - bias) + other.elevation * bias,
+                     time.nil? || other.time.nil? ? nil : Time.at(time.to_f * (1.0 - bias) + other.time.to_f * bias)
     end
   end
 end

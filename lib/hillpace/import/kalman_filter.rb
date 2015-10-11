@@ -17,18 +17,18 @@ module Hillpace
 
       # Applies the filter to a track point
       # @param track_point [TrackPoint] The track point which will be filtered.
-      # @param time [Time] The time when the point was tracked.
       # @return [TrackPoint]
-      def apply(track_point, time)
-        if @variance < 0
+      def apply(track_point)
+        if track_point.time.nil?
+          return track_point
+        elsif @variance < 0
           @track_point = track_point
-          @time = time
           @variance = ACCURACY ** 2
         else
-          time_delta = time - @time
+          time_delta = track_point.time - @track_point.time
           if time_delta > 0
             @variance += time_delta * (get_speed(@track_point, track_point, time_delta) ** 2)
-            @time = time
+            @track_point.time = track_point.time
           end
 
           k = @variance / (@variance + ACCURACY ** 2)

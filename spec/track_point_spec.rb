@@ -2,8 +2,8 @@ require 'rspec'
 
 describe TrackPoint do
   before(:each) do
-    @madrid = TrackPoint.new -3.6795367, 40.4379543, 648
-    @chiclana = TrackPoint.new -6.15084, 36.4118808, 24
+    @madrid = TrackPoint.new -3.6795367, 40.4379543, 648, Time.new('2014')
+    @chiclana = TrackPoint.new -6.15084, 36.4118808, 24, Time.new('2016')
     @granada = TrackPoint.new -3.5922032, 37.1809462, 700
     @veleta = TrackPoint.new -3.348333, 37.050556, 3396
     @googleplex = TrackPoint.new -122.0840575, 37.4219999, 6
@@ -27,6 +27,13 @@ describe TrackPoint do
     it "should discriminate two track points with different elevation" do
       one   = TrackPoint.new(1,1,1)
       other = TrackPoint.new(1,1,2)
+
+      expect(one).to_not eq(other)
+    end
+
+    it "should discriminate two track points with different time" do
+      one   = TrackPoint.new(1,1,1,Time.new('2014'))
+      other = TrackPoint.new(1,1,1,Time.new('2016'))
 
       expect(one).to_not eq(other)
     end
@@ -95,6 +102,16 @@ describe TrackPoint do
     expect { TrackPoint.new 0, 0, 55 }.to_not raise_exception
   end
 
+  it 'should raise exception when time is tried to be set to a value that is not a Time' do
+    expect { @googleplex.time = 5 }.to raise_exception 'Invalid time'
+    expect { TrackPoint.new 0, 0, 0, 5 }.to raise_exception 'Invalid time'
+  end
+
+  it 'should not raise exception when elevation is tried to be set to a valid value' do
+    expect { @googleplex.time = Time.new('2014') }.to_not raise_exception
+    expect { TrackPoint.new 0, 0, 0, Time.new('2014') }.to_not raise_exception
+  end
+
   it 'should return zero distance for the same track point' do
     expect(@googleplex.distance_meters_to @googleplex).to eq 0
   end
@@ -132,5 +149,6 @@ describe TrackPoint do
     expect(interpolated_track_point.longitude).to be_within(0.001).of -4.9151
     expect(interpolated_track_point.latitude).to be_within(0.001).of 38.4249
     expect(interpolated_track_point.elevation).to be_within(1).of 336
+    expect(interpolated_track_point.time.to_f).to be_within(1).of Time.new('2015').to_f
   end
 end
