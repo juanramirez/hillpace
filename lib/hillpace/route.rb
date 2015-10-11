@@ -53,6 +53,18 @@ module Hillpace
       segments.inject(0) {|result, segment| result + segment.total_downhills}
     end
 
+    # Measures the duration of the route, in seconds.
+    # @return [Number]
+    def duration
+      segments.inject(0) {|result, segment| result + segment.duration}
+    end
+
+    # Measures the pace of the route.
+    # @return [Pace]
+    def pace
+      Pace.from_meters_per_second(distance_meters / duration)
+    end
+
     # Splits the segment inside the route that is in the distance indicated.
     # @param distance_meters [Number] The distance in the route where the segment should be splitted.
     def split!(distance_meters)

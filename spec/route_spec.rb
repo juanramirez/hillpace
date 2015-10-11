@@ -3,10 +3,10 @@ require 'rspec'
 describe Route do
   before(:each) do
     @madrid = TrackPoint.new -3.6795367, 40.4379543, 648
-    @cadiz = TrackPoint.new -6.283333, 36.516667, 11
+    @cadiz = TrackPoint.new -6.283333, 36.516667, 11, Time.new(2015, 10, 1, 10)
     @chiclana = TrackPoint.new -6.15084, 36.4118808, 24
-    @puerto_real = TrackPoint.new -6.191944, 36.529167, 12
-    @jerez = TrackPoint.new -6.116667, 36.7, 43
+    @puerto_real = TrackPoint.new -6.191944, 36.529167, 12, Time.new(2015, 10, 1, 10, 50)
+    @jerez = TrackPoint.new -6.116667, 36.7, 43, Time.new(2015, 10, 1, 12, 30)
     @granada = TrackPoint.new -3.5922032, 37.1809462, 700
     @new_york = TrackPoint.new -73.94, 40.67, 10
     @googleplex = TrackPoint.new -122.0840575, 37.4219999, 6
@@ -67,6 +67,14 @@ describe Route do
   it 'should give total downhills data which is the sum of the total downhills of all segments' do
     expect(@chiclana_madrid.total_downhills).to \
     eq @chiclana_googleplex.total_downhills + @googleplex_madrid.total_downhills
+  end
+
+  it 'should give 9000 seconds of duration for Cádiz - Jerez' do
+    expect(@cadiz_jerez.duration).to eq 9000
+  end
+
+  it 'should give a pace of around 5:15 min/km for Cádiz - Jerez' do
+    expect(@cadiz_jerez.pace.seconds_per_km).to be_within(10).of 315
   end
 
   it 'should be splitted if distance is longer than the total route distance' do
