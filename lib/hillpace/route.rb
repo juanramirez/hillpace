@@ -15,7 +15,7 @@ module Hillpace
       unless segments.empty?
         last_track_point = segments.first.track_points.first
         segments.each do |segment|
-          raise 'Segments must be consecutive' unless last_track_point.equal? segment.track_points.first
+          raise 'Segments must be consecutive' unless last_track_point == segment.track_points.first
           last_track_point = segment.track_points.last
         end
       end

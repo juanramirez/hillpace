@@ -1,11 +1,15 @@
-require "hillpace/version"
-require "hillpace/pace"
-require "hillpace/track_point"
-require "hillpace/segment"
-require "hillpace/route"
-require "hillpace/import/kalman_filter"
-require "hillpace/import/gpx/gpx_parser"
-require "hillpace/import/xml/xml_validator"
-require "hillpace/pace_adjuster/pace_adjuster"
-require "hillpace/pace_adjuster/strategies/mervs_running"
-require "hillpace/pace_adjuster/strategies/lets_run_forum"
+require 'nokogiri'
+require 'geoelevation'
+
+require 'hillpace/version'
+require 'hillpace/pace'
+require 'hillpace/track_point'
+require 'hillpace/segment'
+require 'hillpace/route'
+require 'hillpace/import/kalman_filter'
+require 'hillpace/import/gpx/gpx_parser'
+require 'hillpace/import/tcx/tcx_parser'
+require 'hillpace/import/xml/xml_validator'
+require 'hillpace/pace_adjuster/pace_adjuster'
+require 'hillpace/pace_adjuster/strategies/mervs_running'
+require 'hillpace/pace_adjuster/strategies/lets_run_forum'
