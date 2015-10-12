@@ -5,11 +5,12 @@ require 'hillpace'
 class Example
   include Hillpace
   include Hillpace::Import::Gpx
+  include Hillpace::Import::Xml
   include Hillpace::PaceAdjuster
   include Hillpace::PaceAdjuster::Strategies
 
   def initialize
-    @validator = GpxValidator.from_default_schema
+    @validator = XmlValidator.from_gpx_schema
   end
 
   def get_adjusted_paces(route_gpx_path, seconds_per_km)
