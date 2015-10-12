@@ -16,7 +16,7 @@ task :test do
 end
 
 task :example do
-  sh './example.rb'
+  sh './examples/race_planning.rb'
 end
 
 task :clean do

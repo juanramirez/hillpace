@@ -2,7 +2,7 @@
 
 require 'hillpace'
 
-class Example
+class RacePlanning
   include Hillpace
   include Hillpace::Import::Gpx
   include Hillpace::Import::Xml
@@ -22,7 +22,6 @@ class Example
     pace_adjuster = PaceAdjuster.new MERVS_RUNNING
     pace = Pace.from_seconds_per_km seconds_per_km
 
-    puts 'Example: Granada Half Marathon (from flat surface pace: 4:00 min/km)'
     routes.each do |route|
 
       distance = 1000
@@ -43,6 +42,7 @@ class Example
   end
 end
 
-example = Example.new
+puts 'Example: Granada Half Marathon (from flat surface pace: 4:00 min/km)'
+example = RacePlanning.new
 example.get_adjusted_paces 'resources/gpx/GranadaHalfMarathon.gpx', 240
 
