@@ -6,6 +6,8 @@ HillPace is a library for planning running races. It can take the GPX of a route
 
 This is a work in progress, but the core of the code is functional.
 
+[![Code Climate](https://codeclimate.com/github/juanramirez/hillpace/badges/gpa.svg)](https://codeclimate.com/github/juanramirez/hillpace)
+
 #### Installation
 
 Go to the root directory of the package and run:
