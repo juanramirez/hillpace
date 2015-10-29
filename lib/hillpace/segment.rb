@@ -105,7 +105,7 @@ module Hillpace
       latest_track_point = track_points.first
       subsegment_track_points = [latest_track_point]
 
-      track_points.each_with_index do |track_point, index|
+      track_points.lazy.each_with_index do |track_point, index|
         next if index == 0
         distance_delta = latest_track_point.distance_meters_to track_point
         accumulated_distance += distance_delta
@@ -122,7 +122,7 @@ module Hillpace
           end
         end
 
-        subsegment_track_points << track_point
+        subsegment_track_points << track_point.clone
         latest_track_point = track_point
       end
 

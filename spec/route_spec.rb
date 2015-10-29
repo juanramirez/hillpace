@@ -77,14 +77,12 @@ describe Route do
     expect(@cadiz_jerez.pace.seconds_per_km).to be_within(10).of 315
   end
 
-  it 'should be splitted if distance is longer than the total route distance' do
-    @chiclana_jerez.split! 1000
-    expect(@chiclana_jerez.segments.length).to eq 3
+  it 'should be splitted if distance is shorter than the total route distance' do
+    expect((@chiclana_jerez.split [1000, 2000]).segments.length).to eq 4
   end
 
-  it 'should not be splitted if distance is shorter than the total route distance' do
-    @chiclana_jerez.split! 100000
-    expect(@chiclana_jerez.segments.length).to eq 2
+  it 'should not be splitted if distance is longer than the total route distance' do
+    expect((@chiclana_jerez.split [100000]).segments.length).to eq 2
   end
 
 end

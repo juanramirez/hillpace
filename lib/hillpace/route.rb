@@ -65,21 +65,30 @@ module Hillpace
       Pace.from_meters_per_second(distance_meters / duration)
     end
 
-    # Splits the segment inside the route that is in the distance indicated.
-    # @param distance_meters [Number] The distance in the route where the segment should be splitted.
-    def split!(distance_meters)
+    # Splits the segments in the route in the distances indicated.
+    # @param split_distances [Array<Number>] Distances where the segments of the route should be splitted.
+    # @return [Route] A copy of this route, with splitted segments
+    def split(split_distances)
+      split_distances_enumerator = split_distances.sort.each
+      next_split_distance = split_distances_enumerator.next
       accumulated_distance = 0
+      result = []
 
-      segments.each_with_index do |segment, index|
-        segment_distance = segment.distance_meters
-        if accumulated_distance + segment_distance > distance_meters
-          subsegments = segment.split (distance_meters - accumulated_distance)
-          segments[index] = subsegments
-          segments.flatten!
-          break
+      segments.lazy.each do |segment|
+        while next_split_distance < accumulated_distance + segment.distance_meters
+          subsegments = segment.split (next_split_distance - accumulated_distance)
+          result << subsegments.first
+          accumulated_distance += subsegments.first.distance_meters
+          if subsegments.length > 1
+            segment = subsegments.last
+            next_split_distance = split_distances_enumerator.next rescue Float::INFINITY
+          end
         end
-        accumulated_distance += segment_distance
+        result << segment.clone
+        accumulated_distance += segment.distance_meters
       end
+
+      Route.new result
     end
   end
 end

@@ -2,7 +2,7 @@
 
 require 'hillpace'
 
-class RacePlanning
+class RacePlanner
   include Hillpace
   include Hillpace::Import::Gpx
   include Hillpace::Import::Xml
@@ -13,7 +13,7 @@ class RacePlanning
     @validator = XmlValidator.from_gpx_schema
   end
 
-  def get_adjusted_paces(route_gpx_path, seconds_per_km)
+  def get_adjusted_paces(route_gpx_path, seconds_per_km, split_distances)
     raise 'Invalid gpx file' unless (@validator.validate File.open route_gpx_path).empty?
 
     parser = GpxParser.from_file route_gpx_path
@@ -23,15 +23,7 @@ class RacePlanning
     pace = Pace.from_seconds_per_km seconds_per_km
 
     routes.each do |route|
-
-      distance = 1000
-      loop do
-        route_segments_count = route.segments.length
-        route.split! distance
-        distance += 1000
-        break if route_segments_count == route.segments.length
-      end
-
+      route = route.split split_distances
       route.segments.each_with_index do |segment, index|
         incline = segment.incline
         adjusted_pace = pace_adjuster.adjust_pace pace, incline
@@ -43,6 +35,6 @@ class RacePlanning
 end
 
 puts 'Example: Granada Half Marathon (from flat surface pace: 4:00 min/km)'
-example = RacePlanning.new
-example.get_adjusted_paces 'resources/gpx/GranadaHalfMarathon.gpx', 240
-
+race_planner = RacePlanner.new
+split_distances = (1000..21000).step(1000).to_a
+race_planner.get_adjusted_paces 'resources/gpx/GranadaHalfMarathon.gpx', 240, split_distances
