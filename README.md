@@ -2,18 +2,24 @@
 
 HillPace is a library for planning running races. It can take the GPX or TCX of a route and a reference pace (the pace you would go on ideal conditions) and generate planned paces by segments, based on configurable external factors like the climb grade of each segment.
 
-### Status
-
-This is a work in progress, but the core of the code is functional.
+_Note: This is a work in progress, but the core of the code is functional._
 
 [![Code Climate](https://codeclimate.com/github/juanramirez/hillpace/badges/gpa.svg)](https://codeclimate.com/github/juanramirez/hillpace)
 
-#### Installation
+## Installation
 
 Go to the root directory of the package and run:
 ```
 bundle install
 ```
+
+## Use
+
+Add this to your gemfile:
+```
+gem 'hillpace'
+```
+And take a look at the [Example](README.md####example) section.
 
 #### Main dependencies
 
@@ -30,7 +36,7 @@ bundle install
 * [lib/hillpace/pace_adjuster](lib/hillpace/pace_adjuster) contains the pace adjuster and its strategies
 * [lib/hillpace/race_planner](lib/hillpace/race_planner) contains a convenient race planner to, based on a strategy, just obtain the data for a combination of route, split distances and reference pace.
 * [specs](specs) contains the specs :)
-* [example.rb](example.rb) contains an example of use (see the [Example](README.md####example) section)
+* [examples/race_planning.rb](example/race_planning.rb) contains an example of use (see the [Example](README.md####example) section)
 
 #### Tests
 
