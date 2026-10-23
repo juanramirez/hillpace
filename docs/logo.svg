@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="HillPace logo">
+  <defs>
+    <clipPath id="hillpace-inner"><circle cx="32" cy="32" r="27"/></clipPath>
+  </defs>
+  <circle cx="32" cy="32" r="29" fill="#f7f4ee" stroke="#2f8fdd" stroke-width="4"/>
+  <g clip-path="url(#hillpace-inner)">
+    <!-- hill -->
+    <path d="M0 64 V52 C14 50 24 46 34 39 C42 33.5 50 31 64 30 V64 Z" fill="#9ca3af"/>
+    <path d="M0 52 C14 50 24 46 34 39 C42 33.5 50 31 64 30" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+  </g>
+  <!-- runner climbing -->
+  <g fill="none" stroke="#1B1F23" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M30.5 21.5 L27 32"/>
+    <path d="M27 32 L33 35 L31 42"/>
+    <path d="M27 32 L22.5 37.5 L17 37"/>
+    <path d="M29.8 23.5 L35.5 27.5 L39.5 23.5"/>
+    <path d="M29.8 23.5 L24.5 25.5 L22 30"/>
+  </g>
+  <circle cx="33" cy="15.5" r="3.6" fill="#1B1F23"/>
+</svg>

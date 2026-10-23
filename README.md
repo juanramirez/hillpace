@@ -1,4 +1,4 @@
-<img src="https://juanramirez.github.io/assets/images/projects/hillpace/logo.png" alt="HillPace" width="200"/>
+<img src="docs/logo.svg" alt="HillPace logo" width="120"/>
 
 # HillPace
 
