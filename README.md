@@ -1,6 +1,4 @@
-<img src="docs/logo.svg" alt="HillPace logo" width="120"/>
-
-# HillPace
+# <img src="docs/logo.svg" alt="" width="48" height="48" align="center"/> HillPace
 
 HillPace is a library for planning running races. It can take the GPX or TCX of a route and a reference pace (the pace you would go on ideal conditions) and generate planned paces by segments, based on configurable external factors like the climb grade of each segment.
 
